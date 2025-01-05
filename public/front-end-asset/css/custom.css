@@ -1,0 +1,4 @@
+.topbar .container {
+  visibility: visible !important;
+  display: block !important;
+}
