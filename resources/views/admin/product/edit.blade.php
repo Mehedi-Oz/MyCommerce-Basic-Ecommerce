@@ -22,7 +22,7 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
-                                <select name="category_id" id="" class="form-control">
+                                <select name="category_id" id="categoryID" class="form-control">
                                     <option value="" disabled selected>--select a category--</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
@@ -40,7 +40,7 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
-                                <select name="subcategory_id" id="" class="form-control">
+                                <select name="subcategory_id" id="subcategoryID" class="form-control">
                                     <option value="" disabled selected>--select a subcategory--</option>
                                     @foreach ($subcategories as $subcategory)
                                         <option value="{{ $subcategory->id }}"
@@ -159,7 +159,7 @@
                                 Long Description
                             </label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="exampleInputEmail3" rows="5" name="long_description"
+                                <textarea class="form-control summernote" id="exampleInputEmail3" rows="5" name="long_description"
                                     placeholder="long description">{{ $product->long_description }}</textarea>
                             </div>
                         </div>
@@ -178,8 +178,8 @@
                             <label class="form-label col-sm-3 control-label" for="web">Other Images</label>
                             <div class="col-sm-9">
                                 <input type="file" id="input-file-now" class="dropify" name="other_image[]"
-                                    accept="image/*" multiple/>
-                                @foreach ($otherImages as $otherImage)
+                                    accept="image/*" multiple />
+                                @foreach ($product->otherImages as $otherImage)
                                     <img src="{{ asset($otherImage->image) }}" alt=""
                                         style="height: 100px; width: 100px; margin-top: 10px">
                                 @endforeach

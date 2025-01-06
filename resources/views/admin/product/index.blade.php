@@ -16,36 +16,6 @@
                         enctype="multipart/form-data">
                         @csrf
 
-                        {{-- <div class="form-group row">
-                            <label for="categoryID" class="col-sm-3 control-label">
-                                Category Name
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-9">
-                                <select name="category_id" class="form-control" id="categoryID">
-                                    <option value="" disabled selected>--select a category--</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="subcategoryID" class="col-sm-3 control-label">
-                                SubCategory Name
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-9">
-                                <select name="subcategory_id" class="form-control" id="subcategoryID">
-                                    <option value="" disabled selected>--select a subcategory--</option>
-                                    @foreach ($subcategories as $subcategory)
-                                        <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-
                         <div class="form-group row">
                             <label for="" class="col-sm-3 control-label">
                                 Category Name

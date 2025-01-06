@@ -221,37 +221,31 @@
                 </div>
             </div>
             <div class="row">
-                {{-- @foreach ($collection as $item) --}}
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="{{ asset('front-end-asset') }}/images/products/product-1.jpg" alt="#">
-                            <div class="button">
-                                <a href="{{ route('cart.show') }}" class="btn"><i class="lni lni-cart"></i> Add
-                                    to
-                                    Cart</a>
+                @foreach ($products as $product)
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="single-product">
+                            <div class="product-image">
+                                <img src="{{ asset($product->image) }}" alt="#">
+                                <div class="button">
+                                    <a href="{{ route('cart.show') }}" class="btn"><i class="lni lni-cart"></i> Add
+                                        to
+                                        Cart</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Watches</span>
-                            <h4 class="title">
-                                <a href="{{ route('product-category') }}">Xiaomi Mi Band 5</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>$199.00</span>
+                            <div class="product-info">
+                                <span class="category">{{ $product->category->name }}</span>
+                                <h4 class="title">
+                                    <a
+                                        href="{{ route('product.detail', ['id' => $product->id]) }}">{{ $product->name }}</a>
+                                </h4>
+
+                                <div class="price">
+                                    <span>{{ $product->selling_price }} Taka</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    {{-- @endforeach --}}
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

@@ -46,7 +46,7 @@
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-middle">
                         <ul class="useful-links">
-                            <li><a href="{{route('home')}}">Home</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
                             <li><a href="about-us.html">About Us</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
                         </ul>
@@ -78,7 +78,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3 col-7">
 
-                    <a class="navbar-brand" href="{{route('home')}}">
+                    <a class="navbar-brand" href="{{ route('home') }}">
                         <img src="{{ asset('front-end-asset') }}/images/logo/logo.svg" alt="Logo">
                     </a>
 
@@ -135,7 +135,7 @@
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
                                         <span>2 Items</span>
-                                        <a href="cart.html">View Cart</a>
+                                        <a href="{{ route('cart.show') }}">View Cart</a>
                                     </div>
                                     <ul class="shopping-list">
                                         <li>
@@ -181,15 +181,23 @@
                     <div class="mega-category-menu">
                         <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
                         <ul class="sub-category">
-                            <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
-                                <ul class="inner-sub-category">
-                                    <li><a href="product-grids.html">Digital Cameras</a></li>
-                                    <li><a href="product-grids.html">Camcorders</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="product-grids.html">accessories</a></li>
-                            <li><a href="product-grids.html">Televisions</a></li>
-
+                            @foreach ($categories as $category)
+                                <li><a href="{{ route('product.category', ['id' => $category->id]) }}">{{ $category->name }}
+                                        @if (count($category->subCategories) > 0)
+                                            <i class="lni lni-chevron-right"></i>
+                                        @endif
+                                    </a>
+                                    @if (count($category->subCategories) > 0)
+                                        <ul class="inner-sub-category">
+                                            @foreach ($category->subCategories as $subcategory)
+                                                <li>
+                                                    <a href="{{ route('product.subcategory', ['id' => $subcategory->id]) }}">{{ $subcategory->name }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
 
@@ -205,7 +213,8 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a href="{{route('home')}}" class="active" aria-label="Toggle navigation">Home</a>
+                                    <a href="{{ route('home') }}" class="active"
+                                        aria-label="Toggle navigation">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
@@ -228,8 +237,8 @@
                                         <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
                                         <li class="nav-item"><a href="product-list.html">Shop List</a></li>
                                         <li class="nav-item"><a href="product-details.html">shop Single</a></li>
-                                        <li class="nav-item"><a href="{{route('cart.show')}}">Cart</a></li>
-                                        <li class="nav-item"><a href="{{route('checkout')}}">Checkout</a></li>
+                                        <li class="nav-item"><a href="{{ route('cart.show') }}">Cart</a></li>
+                                        <li class="nav-item"><a href="{{ route('checkout') }}">Checkout</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">

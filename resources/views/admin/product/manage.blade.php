@@ -38,9 +38,9 @@
                                                 style="height: 60px; width: 60px">
                                         </td>
                                         <td>{{ $product->status == 1 ? 'Published' : 'Unpublished' }}</td>
-                                        <td>
+                                        <td class="d-flex gap-2 ">
                                             <a href="{{ route('product.details', ['id' => $product->id]) }}"
-                                                title="Edit Product" class="btn btn-info btn-sm">
+                                                title="Product Details" class="btn btn-info btn-sm">
                                                 <i class="fa fa-magnifying-glass"></i>
                                             </a>
 

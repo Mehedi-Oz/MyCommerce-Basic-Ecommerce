@@ -34,7 +34,7 @@
                             </tr>
                             <tr>
                                 <th>Product Sub Category: </th>
-                                <td>{{ $product->subcategory->name}}</td>
+                                <td>{{ $product->subcategory->name }}</td>
                             </tr>
                             <tr>
                                 <th>Product Brand: </th>
@@ -62,7 +62,7 @@
                             </tr>
                             <tr>
                                 <th>Product Long Description: </th>
-                                <td>{{ $product->long_description }}</td>
+                                <td>{!! $product->long_description !!}</td>
                             </tr>
                             <tr>
                                 <th>Product Featured Image: </th>

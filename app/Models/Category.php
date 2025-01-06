@@ -14,7 +14,7 @@ class Category extends Model
         self::$category->name = $request->name;
         self::$category->description = $request->description;
         self::$category->status = $request->status;
-        
+
         if ($request->hasFile('image')) {
             self::$category->image = self::saveImage($request);
         } else {
@@ -31,6 +31,11 @@ class Category extends Model
         self::$directory = 'admin-asset/assets/upload-images/category/';
         self::$image->move(self::$directory, self::$imageNewName);
         return self::$imgUrl = self::$directory . self::$imageNewName;
+    }
+
+    public function subCategories()
+    {
+        return $this->hasMany(SubCategory::class);
     }
 
     public static function statusCategory($id)
@@ -53,7 +58,7 @@ class Category extends Model
         self::$category->name = $request->name;
         self::$category->description = $request->description;
         self::$category->status = $request->status;
-        
+
         if ($request->file('image')) {
             if (self::$category->image && file_exists(self::$category->image)) {
                 unlink(self::$category->image);

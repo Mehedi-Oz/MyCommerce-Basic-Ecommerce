@@ -94,7 +94,7 @@
         }
 </script>
 
-<script>
+{{-- <script>
     $(function() {
         $(document).on('change', '#categoryID', function() {
             var categoryID = $(this).val();
@@ -111,6 +111,33 @@
                     var option = '<option value="" disabled selected>--select a subcategory--</option>';
                     $.each(response, function(key, value) {
                         option += '<option value="' + value.id + '">' + value.name + '</option>';
+                    });
+                    subcategoryID.append(option);
+                }
+            });
+        });
+    });
+</script> --}}
+
+<script>
+    $(function() {
+        $(document).on('change', '#categoryID', function() {
+            var categoryID = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{ route('product.get-subcategory-by-category') }}",
+                data: {
+                    id: categoryID
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    var subcategoryID = $('#subcategoryID');
+                    subcategoryID.empty();
+                    var option =
+                        '<option value="" disabled selected>--select a subcategory--</option>';
+                    $.each(response, function(key, value) {
+                        option +=
+                            '<option value=' + value.id + '>'+ value.name +'</option>';
                     });
                     subcategoryID.append(option);
                 }

@@ -39,13 +39,13 @@
                             <p>Product Name</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
+                            <p>Unit Price</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12">
                             <p>Quantity</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Subtotal</p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>Discount</p>
+                            <p>Total</p>
                         </div>
                         <div class="col-lg-1 col-md-2 col-12">
                             <p>Remove</p>
@@ -53,45 +53,51 @@
                     </div>
                 </div>
 
+                @php($subTotal = 0)
 
-                <div class="cart-single-list">
-                    <div class="row align-items-center">
-                        <div class="col-lg-1 col-md-1 col-12">
-                            <a href="product-details.html"><img src="{{ asset('front-end-asset') }}/images/cart/01.jpg" alt="#"></a>
-                        </div>
-                        <div class="col-lg-4 col-md-3 col-12">
-                            <h5 class="product-name"><a href="product-details.html">
-                                    Canon EOS M50 Mirrorless Camera</a></h5>
-                            <p class="product-des">
-                                <span><em>Type:</em> Mirrorless</span>
-                                <span><em>Color:</em> Black</span>
-                            </p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <div class="count-input">
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                @foreach ($cartProducts as $cartProduct)
+                    <div class="cart-single-list">
+                        <div class="row align-items-center">
+                            <div class="col-lg-1 col-md-1 col-12">
+                                <a href=""><img src="{{ asset($cartProduct->options->image) }}" alt="#"></a>
+                            </div>
+                            <div class="col-lg-4 col-md-3 col-12">
+                                <h5 class="product-name"><a href="">
+                                        {{ $cartProduct->name }}</a></h5>
+                                <p class="product-des">
+                                    <span><em>Category: </em>{{ $cartProduct->options->category }}</span>
+                                    <span><em>Brand: </em>{{ $cartProduct->options->brand }}</span>
+                                </p>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-12">
+                                <div class="count-input">
+                                    {{ $cartProduct->price }} Tk
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-12">
+                                <form action="" method="post">
+                                    @csrf
+                                    <div class="input-group">
+                                        <input class="form-control" value="{{ $cartProduct->qty }}" name="qty"
+                                            min="1" required>
+                                        <input type="submit" class="btn btn-success btn-sm" value="Update">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-12">
+                                <p>{{ $cartProduct->price * $cartProduct->qty }}</p>
+                            </div>
+                            <div class="col-lg-1 col-md-2 col-12">
+                                <a class="remove-item" onclick="return confirm('Remove this item?')"
+                                    href=""><i
+                                        class="lni lni-close"></i></a>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>$910.00</p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>$29.00</p>
-                        </div>
-                        <div class="col-lg-1 col-md-2 col-12">
-                            <a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
-                        </div>
                     </div>
-                </div>
-
-
+                    @php($subTotal += $cartProduct->price * $cartProduct->qty)
+                @endforeach
             </div>
+
             <div class="row">
                 <div class="col-12">
 
@@ -118,7 +124,7 @@
                                         <li class="last">You Pay<span>$2531.00</span></li>
                                     </ul>
                                     <div class="button">
-                                        <a href="{{route('checkout')}}" class="btn">Checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn">Checkout</a>
                                         <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>
