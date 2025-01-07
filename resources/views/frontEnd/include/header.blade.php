@@ -54,18 +54,31 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-end">
-                        <div class="user">
-                            <i class="lni lni-user"></i>
-                            Hello
-                        </div>
-                        <ul class="user-login">
-                            <li>
-                                <a href="login.html">Sign In</a>
-                            </li>
-                            <li>
-                                <a href="register.html">Register</a>
-                            </li>
-                        </ul>
+                        @if (Session::get('customerName'))
+                            <div class="user">
+                                <i class="lni lni-user ml-1">
+                                     {{Session::get('customerName')}}
+                                </i>
+                            </div>
+
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{ route('customer.dashboard') }}">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('customer.logout') }}">Logout</a>
+                                </li>
+                            </ul>
+                        @else
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{ route('customer.login') }}">Sign In</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('customer.register') }}">Register</a>
+                                </li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -129,37 +142,36 @@
                             <div class="cart-items">
                                 <a href="javascript:void(0)" class="main-btn">
                                     <i class="lni lni-cart"></i>
-                                    <span class="total-items">2</span>
+                                    <span class="total-items">{{ count(Cart::content()) }}</span>
                                 </a>
 
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
-                                        <span>2 Items</span>
+                                        <span>{{ count(Cart::content()) }} Items</span>
                                         <a href="{{ route('cart.show') }}">View Cart</a>
                                     </div>
                                     <ul class="shopping-list">
-                                        <li>
-                                            <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                    class="lni lni-close"></i></a>
-                                            <div class="cart-img-head">
-                                                <a class="cart-img" href="product-details.html"><img
-                                                        src="{{ asset('front-end-asset') }}/images/header/cart-items/item1.jpg"
-                                                        alt="#"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4><a href="product-details.html">
-                                                        Apple Watch Series 6</a></h4>
-                                                <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                            </div>
-                                        </li>
+                                        @foreach (Cart::content() as $cartProduct)
+                                            <li>
+                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                                                        class="lni lni-close"></i></a>
+                                                <div class="cart-img-head">
+                                                    <a class="cart-img" href="product-details.html"><img
+                                                            src="{{ asset($cartProduct->options->image) }}"
+                                                            alt="#"></a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4><a href="product-details.html">{{ $cartProduct->name }}</a>
+                                                    </h4>
+                                                    <p class="quantity">{{ $cartProduct->qty }}x - <span
+                                                            class="amount">{{ $cartProduct->price }} Tk</span></p>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                     <div class="bottom">
-                                        <div class="total">
-                                            <span>Total</span>
-                                            <span class="total-amount">$134.00</span>
-                                        </div>
                                         <div class="button">
-                                            <a href="checkout.html" class="btn animate">Checkout</a>
+                                            <a href="{{ route('checkout') }}" class="btn animate">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +203,8 @@
                                         <ul class="inner-sub-category">
                                             @foreach ($category->subCategories as $subcategory)
                                                 <li>
-                                                    <a href="{{ route('product.subcategory', ['id' => $subcategory->id]) }}">{{ $subcategory->name }}</a>
+                                                    <a
+                                                        href="{{ route('product.subcategory', ['id' => $subcategory->id]) }}">{{ $subcategory->name }}</a>
                                                 </li>
                                             @endforeach
                                         </ul>

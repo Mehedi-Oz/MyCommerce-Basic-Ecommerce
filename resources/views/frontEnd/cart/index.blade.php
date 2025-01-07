@@ -13,6 +13,9 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
                         <h1 class="page-title">Cart</h1>
+                        <div class="text-success">
+                            {{session('message')}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
@@ -71,13 +74,13 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
                                 <div class="count-input">
-                                    {{ $cartProduct->price }} Tk
+                                    {{ $cartProduct->price }} Taka
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
-                                <form action="" method="post">
+                                <form action="{{ route('cart.update', ['id' => $cartProduct->rowId]) }}" method="post">
                                     @csrf
-                                    <div class="input-group">
+                                    <div class="input-group" style="margin-left: -52px;">
                                         <input class="form-control" value="{{ $cartProduct->qty }}" name="qty"
                                             min="1" required>
                                         <input type="submit" class="btn btn-success btn-sm" value="Update">
@@ -85,12 +88,12 @@
                                 </form>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
-                                <p>{{ $cartProduct->price * $cartProduct->qty }}</p>
+                                <p>{{ $cartProduct->price * $cartProduct->qty }} Taka</p>
                             </div>
                             <div class="col-lg-1 col-md-2 col-12">
                                 <a class="remove-item" onclick="return confirm('Remove this item?')"
-                                    href=""><i
-                                        class="lni lni-close"></i></a>
+                                    href="{{ route('cart.remove', ['id' => $cartProduct->rowId]) }}">
+                                    <i class="lni lni-close"></i></a>
                             </div>
                         </div>
                     </div>
@@ -118,14 +121,15 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>Cart Subtotal<span>$2560.00</span></li>
-                                        <li>Shipping<span>Free</span></li>
-                                        <li>You Save<span>$29.00</span></li>
-                                        <li class="last">You Pay<span>$2531.00</span></li>
+                                        <li>Cart Subtotal<span>{{ $subTotal }} Taka</span></li>
+                                        <li>Tax<span>{{ $tax = round(($subTotal * 2) / 100) }} Tk</span></li>
+                                        <li>Shipping Cost<span>{{ $shipping = 120 }} Tk</span></li>
+                                        <li class="last">Tatal Payable<span>{{ $subTotal + $tax + $shipping }}
+                                                Taka</span></li>
                                     </ul>
                                     <div class="button">
                                         <a href="{{ route('checkout') }}" class="btn">Checkout</a>
-                                        <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                                        <a href="{{ route('home') }}" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>
                             </div>

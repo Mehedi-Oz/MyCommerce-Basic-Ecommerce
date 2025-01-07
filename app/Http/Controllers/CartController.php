@@ -10,10 +10,20 @@ class CartController extends Controller
 {
     private $product;
 
-    public function addCart(Request $request, $id)
+    public function index()
     {
-        dd(Product::find($id));
+
+        // return Cart::content();
+        return view('frontEnd.cart.index', [
+            'cartProducts' => Cart::content()
+        ]);
+    }
+
+
+    public function add(Request $request, $id)
+    {
         $this->product = Product::find($id);
+
         Cart::add(
             $this->product->id,
             $this->product->name,
@@ -22,17 +32,24 @@ class CartController extends Controller
             [
                 'image' => $this->product->image,
                 'category' => $this->product->category->name,
-                'brand' => $this->product->brand->name
+                'brand' => $this->product->brand->name,
             ]
         );
         return redirect('/cart/show');
     }
 
-    public function showCart()
+    public function remove($id)
     {
-        // return Cart::content();
-        return view("frontEnd.cart.index", [
-            'cartProducts' => Cart::content()
-        ]);
+        $rowId = $id;
+        Cart::remove($rowId);
+        return redirect('/cart/show');
     }
+
+    public function update(Request $request, $id)
+    {
+        $rowId = $id;
+        Cart::update($rowId, $request->qty);
+        return redirect('/cart/show')->with('message', 'Item has been updated!');
+    }
+
 }

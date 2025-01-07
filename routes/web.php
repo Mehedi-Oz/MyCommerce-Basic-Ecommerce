@@ -10,7 +10,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\CustomerAuthController;
 
 //MyCommerceController
 Route::get('/', [MyCommerceController::class, 'index'])->name('home');
@@ -20,13 +20,24 @@ Route::get('/product/detail/{id}', [MyCommerceController::class, 'detail'])->nam
 
 
 //CartController
-Route::post('/cart/add/{id}', [CartController::class, 'addCart'])->name('cart.add');
-Route::get('/cart/show', [CartController::class, 'showCart'])->name('cart.show');
+Route::get('/cart/show', [CartController::class, 'index'])->name('cart.show');
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 
 
 //CheckoutController
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/cash-on-delivery', [CheckoutController::class, 'cashOnDelivery'])->name('cash-on-delivery');
+Route::get('/order-complete', [CheckoutController::class, 'orderComplete'])->name('order-complete');
 
+//CustomerAuthController
+Route::get('/customer/login', [CustomerAuthController::class, 'loginCustomer'])->name('customer.login');
+Route::post('/customer/login', [CustomerAuthController::class, 'loginCustomerCheck'])->name('customer.login');
+Route::get('/customer/register', [CustomerAuthController::class, 'registerCustomer'])->name('customer.register');
+Route::get('/customer/new', [CustomerAuthController::class, 'newCustomer'])->name('customer.new');
+Route::get('/customer/logout', [CustomerAuthController::class, 'logoutCustomer'])->name('customer.logout');
+Route::get('/customer/dashboard', [CustomerAuthController::class, 'dashboardCustomer'])->name('customer.dashboard');
 
 
 Route::middleware([
