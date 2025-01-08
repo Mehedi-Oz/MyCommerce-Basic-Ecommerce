@@ -33,7 +33,8 @@
                         <div class="card-body">
                             <div class="title">
                                 <h3>Login Now</h3>
-                                <p>You can login using your social media account or email address.</p>
+                                <p>{{session('message')}}</p>
+                                
                             </div>
                             <div class="social-login">
                                 <div class="row">
