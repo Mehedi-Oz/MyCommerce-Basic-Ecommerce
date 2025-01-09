@@ -1,7 +1,7 @@
 @extends('frontEnd.master')
 
 @section('title')
-    Checkout
+    Login
 @endsection
 
 @section('body')

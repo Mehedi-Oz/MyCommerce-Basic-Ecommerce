@@ -3,6 +3,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
 
+<link rel="stylesheet" href="{{asset('admin-asset')}}/dist/css/invoice.css">
+
 <link rel="stylesheet" href="{{ asset('admin-asset') }}/assets/node_modules/dropify/dist/css/dropify.min.css">
 
 <link rel="stylesheet" type="text/css" href="{{ asset('admin-asset') }}/assets/node_modules/summernote/dist/summernote-bs4.css">

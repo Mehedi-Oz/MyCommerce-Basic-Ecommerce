@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\AdminOrderController;
 
 //MyCommerceController
 Route::get('/', [MyCommerceController::class, 'index'])->name('home');
@@ -42,19 +43,18 @@ Route::post('/customer/register', [CustomerAuthController::class, 'newCustomer']
 
 Route::middleware(['customer'])->group(function () {
 
-    //CustomerOrderController
-    Route::get('/customer/orders', [CustomerOrderController::class, 'showOrders'])->name('customer.orders');
+//CustomerAuthController
+Route::get('/customer/dashboard', [CustomerAuthController::class, 'dashboardCustomer'])->name('customer.dashboard');
+Route::get('/customer/logout', [CustomerAuthController::class, 'logoutCustomer'])->name('customer.logout');
 
-    //CustomerAuthController
-    Route::get('/customer/dashboard', [CustomerAuthController::class, 'dashboardCustomer'])->name('customer.dashboard');
-    Route::get('/customer/logout', [CustomerAuthController::class, 'logoutCustomer'])->name('customer.logout');
-    Route::get('/customer/logout', [CustomerAuthController::class, 'logout'])->name('customer.logout');
+//CustomerOrderController
+Route::get('/customer/orders', [CustomerOrderController::class, 'showOrders'])->name('customer.orders');
 
 });
 
 
-Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+Route::get('/easyCheckout', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/hostedCheckout', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
 Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
 Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
@@ -121,4 +121,14 @@ Route::middleware([
     Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::get('/product/status/{id}', [ProductController::class, 'status'])->name('product.status');
     Route::post('/product/delete', [ProductController::class, 'delete'])->name('product.delete');
+
+    //AdminOrderController
+    Route::get('/admin/all-order', [AdminOrderController::class, 'index'])->name('admin.all-order');
+    Route::get('/admin/order-detail/{id}', [AdminOrderController::class, 'detail'])->name('admin.order-detail');
+    Route::get('/admin/order-edit/{id}', [AdminOrderController::class, 'edit'])->name('admin.order-edit');
+    Route::post('/admin/update-order/{id}', [AdminOrderController::class, 'update'])->name('admin.update-order');
+    Route::get('/admin/order-invoice/{id}', [AdminOrderController::class, 'showInvoice'])->name('admin.order-invoice');
+    Route::get('/admin/print-invoice/{id}', [AdminOrderController::class, 'printInvoice'])->name('admin.print-invoice');
+    Route::post('/admin/order-delete', [AdminOrderController::class, 'Delete'])->name('admin.order-delete');
+
 });
